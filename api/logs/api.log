@@ -1,0 +1,388 @@
+2025-12-25 08:55:24.274 | INFO     | app:<module>:27 - Model and vectorizer loaded successfully!
+2025-12-25 08:56:31.488 | ERROR    | app:predict:51 - Prediction failed
+Traceback (most recent call last):
+
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/sklearn/utils/_encode.py", line 229, in _encode
+    return _map_to_integer(values, uniques)
+           │               │       └ array(['COMEDY', 'CRIME', 'EDUCATION', 'SPORTS', 'WOMEN'], dtype=object)
+           │               └ array(['AI is changing the future'], dtype=object)
+           └ <function _map_to_integer at 0x7750acb6a7a0>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/sklearn/utils/_encode.py", line 168, in _map_to_integer
+    return xp.asarray([table[v] for v in values], device=device(values))
+           │  │        │                 │               │      └ array(['AI is changing the future'], dtype=object)
+           │  │        │                 │               └ <function device at 0x7750acaf1a80>
+           │  │        │                 └ array(['AI is changing the future'], dtype=object)
+           │  │        └ {'COMEDY': 0, 'CRIME': 1, 'EDUCATION': 2, 'SPORTS': 3, 'WOMEN': 4}
+           │  └ <function asarray at 0x7750b1790720>
+           └ <module 'sklearn.externals.array_api_compat.numpy' from '/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3...
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/sklearn/utils/_encode.py", line 161, in __missing__
+    raise KeyError(key)
+                   └ 'AI is changing the future'
+
+KeyError: 'AI is changing the future'
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.12/threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7750ce680cc0>
+    └ <WorkerThread(AnyIO worker thread, started 131188370331328)>
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+    │    └ <function WorkerThread.run at 0x7750ac3cb740>
+    └ <WorkerThread(AnyIO worker thread, started 131188370331328)>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             │       │   │      └ ()
+             │       │   └ functools.partial(<function predict at 0x7750ac915300>, item=TextItem(text='AI is changing the future'))
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x7750b0583e80>
+
+> File "/home/yechnk-amalajit/News_Category_Classification/api/app.py", line 47, in predict
+    X = vectorizer.transform([item.text])
+        │          │          │    └ 'AI is changing the future'
+        │          │          └ TextItem(text='AI is changing the future')
+        │          └ <function LabelEncoder.transform at 0x7750ac8ae7a0>
+        └ LabelEncoder()
+
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/sklearn/preprocessing/_label.py", line 144, in transform
+    return _encode(y, uniques=self.classes_)
+           │       │          │    └ array(['COMEDY', 'CRIME', 'EDUCATION', 'SPORTS', 'WOMEN'], dtype=object)
+           │       │          └ LabelEncoder()
+           │       └ array(['AI is changing the future'], dtype=object)
+           └ <function _encode at 0x7750acb6aa20>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/sklearn/utils/_encode.py", line 231, in _encode
+    raise ValueError(f"y contains previously unseen labels: {e}")
+
+ValueError: y contains previously unseen labels: 'AI is changing the future'
+2025-12-25 09:03:08.209 | ERROR    | app:<module>:31 - Failed to load model artifacts
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 4
+               │     └ 7
+               └ <function _main at 0x74e1208e1760>
+  File "/usr/lib/python3.12/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 4
+           │    └ <function BaseProcess._bootstrap at 0x74e1209afa60>
+           └ <SpawnProcess name='SpawnProcess-3' parent=7212 started>
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x74e1209aefc0>
+    └ <SpawnProcess name='SpawnProcess-3' parent=7212 started>
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x74e11fc898e0>, 'target': <bound method Server.run of <uvicorn.server.Server obj...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-3' parent=7212 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-3' parent=7212 started>
+    │    └ <function subprocess_started at 0x74e11fb09e40>
+    └ <SpawnProcess name='SpawnProcess-3' parent=7212 started>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x74e11fb52630>>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x74e11fc94ea0>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x74e11fc898e0>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x74e11fb52630>
+           │           │    │             └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+           │           │    └ <function Server.serve at 0x74e11fb08fe0>
+           │           └ <uvicorn.server.Server object at 0x74e11fb52630>
+           └ <function run at 0x74e120cf0680>
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x74e120950120>
+           │      └ <function Runner.run at 0x74e12043a200>
+           └ <asyncio.runners.Runner object at 0x74e11fb52300>
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at /home/yechnk-amalajit/News_Category_Classification/.venv/lib/pyth...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x74e120433e20>
+           │    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x74e11fb52300>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 674, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x74e120433d80>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 641, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x74e120439bc0>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 1987, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x74e12069a0c0>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x74e11fb502b0>()>
+  File "/usr/lib/python3.12/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <_asyncio.TaskStepMethWrapper object at 0x74e11fb502b0>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <_asyncio.TaskStepMethWrapper object at 0x74e11fb502b0>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x74e11fb502b0>()>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+          │    │      └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+          │    └ <function Server._serve at 0x74e11fb09080>
+          └ <uvicorn.server.Server object at 0x74e11fb52630>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    │      └ <function Config.load at 0x74e11fc94d60>
+    └ <uvicorn.config.Config object at 0x74e11fc898e0>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+    │                 │                  │    └ 'app:app'
+    │                 │                  └ <uvicorn.config.Config object at 0x74e11fc898e0>
+    │                 └ <function import_from_string at 0x74e11fc5a0c0>
+    └ <uvicorn.config.Config object at 0x74e11fc898e0>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             │         │             └ 'app'
+             │         └ <function import_module at 0x74e120878900>
+             └ <module 'importlib' from '/usr/lib/python3.12/importlib/__init__.py'>
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           │          │           │    │        │        └ 0
+           │          │           │    │        └ None
+           │          │           │    └ 0
+           │          │           └ 'app'
+           │          └ <function _gcd_import at 0x74e120d380e0>
+           └ <module '_frozen_importlib' (frozen)>
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+> File "/home/yechnk-amalajit/News_Category_Classification/api/app.py", line 22, in <module>
+    with open("artifacts/news_classifier_pipeline.pkl", "rb") as f:
+
+FileNotFoundError: [Errno 2] No such file or directory: 'artifacts/news_classifier_pipeline.pkl'
+2025-12-25 09:05:22.433 | ERROR    | app:<module>:31 - Failed to load model artifacts
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 4
+               │     └ 7
+               └ <function _main at 0x79265fb31760>
+  File "/usr/lib/python3.12/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 4
+           │    └ <function BaseProcess._bootstrap at 0x79265fbfba60>
+           └ <SpawnProcess name='SpawnProcess-1' parent=8361 started>
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x79265fbfafc0>
+    └ <SpawnProcess name='SpawnProcess-1' parent=8361 started>
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x79265f944d70>, 'target': <bound method Server.run of <uvicorn.server.Server obj...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=8361 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=8361 started>
+    │    └ <function subprocess_started at 0x79265ed0de40>
+    └ <SpawnProcess name='SpawnProcess-1' parent=8361 started>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x79265ed56390>>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x79265ee98ea0>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x79265f944d70>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x79265ed56390>
+           │           │    │             └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+           │           │    └ <function Server.serve at 0x79265ed0cfe0>
+           │           └ <uvicorn.server.Server object at 0x79265ed56390>
+           └ <function run at 0x79265fd08680>
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x79265fb9c120>
+           │      └ <function Runner.run at 0x79265f686200>
+           └ <asyncio.runners.Runner object at 0x79265ee8d610>
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at /home/yechnk-amalajit/News_Category_Classification/.venv/lib/pyth...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x79265f67fe20>
+           │    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x79265ee8d610>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 674, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x79265f67fd80>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 641, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x79265f685bc0>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 1987, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x79265f8e60c0>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x79265ed542e0>()>
+  File "/usr/lib/python3.12/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <_asyncio.TaskStepMethWrapper object at 0x79265ed542e0>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <_asyncio.TaskStepMethWrapper object at 0x79265ed542e0>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x79265ed542e0>()>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+          │    │      └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+          │    └ <function Server._serve at 0x79265ed0d080>
+          └ <uvicorn.server.Server object at 0x79265ed56390>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    │      └ <function Config.load at 0x79265ee98d60>
+    └ <uvicorn.config.Config object at 0x79265f944d70>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+    │                 │                  │    └ 'app:app'
+    │                 │                  └ <uvicorn.config.Config object at 0x79265f944d70>
+    │                 └ <function import_from_string at 0x79265ee5e0c0>
+    └ <uvicorn.config.Config object at 0x79265f944d70>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             │         │             └ 'app'
+             │         └ <function import_module at 0x79265fac8900>
+             └ <module 'importlib' from '/usr/lib/python3.12/importlib/__init__.py'>
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           │          │           │    │        │        └ 0
+           │          │           │    │        └ None
+           │          │           │    └ 0
+           │          │           └ 'app'
+           │          └ <function _gcd_import at 0x79265fd500e0>
+           └ <module '_frozen_importlib' (frozen)>
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+> File "/home/yechnk-amalajit/News_Category_Classification/api/app.py", line 22, in <module>
+    with open("artifacts/news_classifier_pipeline.pkl", "rb") as f:
+
+FileNotFoundError: [Errno 2] No such file or directory: 'artifacts/news_classifier_pipeline.pkl'
+2025-12-25 09:06:21.786 | ERROR    | app:<module>:31 - Failed to load model artifacts
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 4
+               │     └ 7
+               └ <function _main at 0x789614585760>
+  File "/usr/lib/python3.12/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 4
+           │    └ <function BaseProcess._bootstrap at 0x78961464fa60>
+           └ <SpawnProcess name='SpawnProcess-1' parent=8540 started>
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x78961464efc0>
+    └ <SpawnProcess name='SpawnProcess-1' parent=8540 started>
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x789613997950>, 'target': <bound method Server.run of <uvicorn.server.Server obj...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=8540 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=8540 started>
+    │    └ <function subprocess_started at 0x7896137ade40>
+    └ <SpawnProcess name='SpawnProcess-1' parent=8540 started>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x7896137f65a0>>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x78961399cea0>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x789613997950>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x7896137f65a0>
+           │           │    │             └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+           │           │    └ <function Server.serve at 0x7896137acfe0>
+           │           └ <uvicorn.server.Server object at 0x7896137f65a0>
+           └ <function run at 0x78961475c680>
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x7896145f0120>
+           │      └ <function Runner.run at 0x789613b7a200>
+           └ <asyncio.runners.Runner object at 0x789613994fe0>
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at /home/yechnk-amalajit/News_Category_Classification/.venv/lib/pyth...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x789613b73e20>
+           │    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x789613994fe0>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 674, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x789613b73d80>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 641, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x789613b79bc0>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 1987, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x78961433a0c0>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x789614349f60>()>
+  File "/usr/lib/python3.12/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <_asyncio.TaskStepMethWrapper object at 0x789614349f60>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <_asyncio.TaskStepMethWrapper object at 0x789614349f60>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x789614349f60>()>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+          │    │      └ [<socket.socket fd=3, family=2, type=1, proto=0, laddr=('0.0.0.0', 8000)>]
+          │    └ <function Server._serve at 0x7896137ad080>
+          └ <uvicorn.server.Server object at 0x7896137f65a0>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    │      └ <function Config.load at 0x78961399cd60>
+    └ <uvicorn.config.Config object at 0x789613997950>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+    │                 │                  │    └ 'app:app'
+    │                 │                  └ <uvicorn.config.Config object at 0x789613997950>
+    │                 └ <function import_from_string at 0x7896139620c0>
+    └ <uvicorn.config.Config object at 0x789613997950>
+  File "/home/yechnk-amalajit/News_Category_Classification/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             │         │             └ 'app'
+             │         └ <function import_module at 0x78961451c900>
+             └ <module 'importlib' from '/usr/lib/python3.12/importlib/__init__.py'>
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           │          │           │    │        │        └ 0
+           │          │           │    │        └ None
+           │          │           │    └ 0
+           │          │           └ 'app'
+           │          └ <function _gcd_import at 0x7896147a40e0>
+           └ <module '_frozen_importlib' (frozen)>
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+> File "/home/yechnk-amalajit/News_Category_Classification/api/app.py", line 22, in <module>
+    with open("artifacts/news_classifier_pipeline.pkl", "rb") as f:
+
+FileNotFoundError: [Errno 2] No such file or directory: 'artifacts/news_classifier_pipeline.pkl'
